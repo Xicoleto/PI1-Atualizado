@@ -31,3 +31,8 @@ Após o terminal mostrar que o banco está pronto e o backend está rodando, ace
 Usuário: admin@admin.com
 
 Senha: admin
+
+4. Versão web do programa foi publicada na plataforma Render.
+
+frontend: https://pi1-atualizado-1.onrender.com/
+

@@ -33,7 +33,7 @@ function DashboardOperador({
   // depois de mudar um status (no lugar do window.location.reload)
   async function carregarLista() {
     try {
-      const res = await fetch("${API_URL}/api/solicitacoes");
+      const res = await fetch(`${API_URL}/api/solicitacoes`);
       const dados = await res.json();
       setLista(dados);
     } catch (error) {

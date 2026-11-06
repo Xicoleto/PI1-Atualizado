@@ -67,7 +67,7 @@ function NovoRequerimento({
     try {
       // Chama o Backend na porta 3001
       const resposta = await fetch(
-        "${API_URL}/api/solicitacoes",
+        `${API_URL}/api/solicitacoes`,
         {
           method: "POST",
           headers: {

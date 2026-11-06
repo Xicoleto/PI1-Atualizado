@@ -24,7 +24,7 @@ Após o terminal mostrar que o banco está pronto e o backend está rodando, ace
 
 🌐 Frontend (Interface do Usuário): http://localhost:5173
 
-⚙️ Backend (API): http://localhost:3001
+⚙️ Backend (API): http://localhost:3001 / `${API_URL}/api/solicitacoes` no render
 
 🗄️ pgAdmin (Gerenciar o Banco): http://localhost:8080
 

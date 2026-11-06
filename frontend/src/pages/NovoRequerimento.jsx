@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_URL } from "../config";
 
 function NovoRequerimento({
   mudarPagina,
@@ -66,7 +67,7 @@ function NovoRequerimento({
     try {
       // Chama o Backend na porta 3001
       const resposta = await fetch(
-        "http://localhost:3001/api/solicitacoes",
+        "${API_URL}/api/solicitacoes",
         {
           method: "POST",
           headers: {

@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { Sequelize } = require('sequelize');
-const config = require('./config/config.json').development;
+const { sequelize } = require('./models');
 
 // 1. IMPORTAR AS ROTAS (Verifique se os caminhos estão corretos)
 const solicitacaoRoutes = require('./routes/solicitacaoRoutes');
@@ -14,10 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 // Teste de conexão com o Banco de Dados (Docker)
-const sequelize = new Sequelize(config.database, config.username, config.password, {
-  host: config.host,
-  dialect: config.dialect
-});
+
+
 
 // 2. REGISTRAR AS ROTAS
 // Agora o Express vai entender que tudo que começa com /api/solicitacoes 
@@ -36,4 +33,5 @@ app.get('/api/test', async (req, res) => {
   }
 });
 
-app.listen(3001, () => console.log('Servidor rodando na porta 3001'));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));

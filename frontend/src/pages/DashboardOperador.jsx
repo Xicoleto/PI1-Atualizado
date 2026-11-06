@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_URL } from "../config";
  
 function DashboardOperador({
   mudarPagina,
@@ -32,7 +33,7 @@ function DashboardOperador({
   // depois de mudar um status (no lugar do window.location.reload)
   async function carregarLista() {
     try {
-      const res = await fetch("http://localhost:3001/api/solicitacoes");
+      const res = await fetch("${API_URL}/api/solicitacoes");
       const dados = await res.json();
       setLista(dados);
     } catch (error) {
@@ -46,7 +47,7 @@ function DashboardOperador({
  
   async function mudarStatus(id, novoStatus) {
     try {
-      await fetch(`http://localhost:3001/api/solicitacoes/${id}/status`, {
+      await fetch(`${API_URL}/api/solicitacoes/${id}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status_atual: novoStatus }),

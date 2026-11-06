@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { API_URL } from "../config";
 
 function AcompanharSolicitacao({
   mudarPagina,
@@ -40,7 +41,7 @@ function AcompanharSolicitacao({
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/solicitacoes/buscar/${cpfLimpo}`
+        `${API_URL}/api/solicitacoes/buscar/${cpfLimpo}`
       );
 
         if (response.ok) {

@@ -11,7 +11,7 @@ import DashboardOperador from "./pages/DashboardOperador";
 
 function App() {
   const [pagina, setPagina] = useState("login");
-  const [statusAtual, setStatusAtual] = useState("");
+  const [solicitacoes, setSolicitacoes] = useState([]);   // antes: statusAtual / setStatusAtual, com ""
 
   const [altoContraste, setAltoContraste] = useState(() => {
     return localStorage.getItem("altoContraste") === "true";
@@ -62,10 +62,11 @@ function App() {
 
       {pagina === "acompanhar" && (
         <AcompanharSolicitacao
-          mudarPagina={setPagina}
-          setStatusRemoto={setStatusAtual}
-          {...propriedadesAcessibilidade}
-        />
+         mudarPagina={setPagina}
+         setSolicitacoes={setSolicitacoes}      // antes: setStatusRemoto={setStatusAtual}
+        {...propriedadesAcessibilidade}
+         />
+
       )}
 
       {pagina === "sucesso" && (
@@ -77,10 +78,11 @@ function App() {
 
       {pagina === "status" && (
         <StatusSolicitacao
-          status={statusAtual}
+          solicitacoes={solicitacoes}            // antes: status={statusAtual}
           mudarPagina={setPagina}
-          {...propriedadesAcessibilidade}
+         {...propriedadesAcessibilidade}
         />
+        
       )}
 
       {pagina === "naoEncontrado" && (

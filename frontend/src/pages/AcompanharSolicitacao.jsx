@@ -5,8 +5,9 @@ function AcompanharSolicitacao({
   mudarPagina,
   altoContraste,
   alternarContraste,
-  setStatusRemoto,
+  setSolicitacoes,        // antes: setStatusRemoto
 }) {
+  
   const [cpf, setCpf] = useState("");
 
   const cores = altoContraste
@@ -32,8 +33,8 @@ function AcompanharSolicitacao({
   async function buscar() {
     const cpfLimpo = cpf.replace(/\D/g, "");
 
-    if (!cpfLimpo) {
-      alert("Digite o CPF!");
+     if (cpfLimpo.length !== 11) {
+      alert("O CPF deve ter 11 números.");     //Antes checava só se estava vazio, agora checa se de fato tem 11 digitos apenas numéricos
       return;
     }
 
@@ -42,29 +43,22 @@ function AcompanharSolicitacao({
         `http://localhost:3001/api/solicitacoes/buscar/${cpfLimpo}`
       );
 
-      if (response.ok) {
-        const dados = await response.json();
+        if (response.ok) {
+        const dados = await response.json();   // agora é uma lista
 
-        if (setStatusRemoto) {
-          setStatusRemoto(dados.status || "");
+        if (setSolicitacoes) {
+          setSolicitacoes(dados);
         }
 
-        if (
-          dados.status === "Em análise" ||
-          dados.status === "Concluído"
-        ) {
-          mudarPagina("status");
+        mudarPagina("status");
         } else {
-          mudarPagina("naoEncontrado");
-        }
-      } else {
         mudarPagina("naoEncontrado");
       }
-    } catch (error) {
+      } catch (error) {
       console.error("Erro ao buscar:", error);
       alert("Erro de conexão com o servidor.");
-    }
-  }
+      }
+        }
 
   return (
     <div
@@ -136,8 +130,8 @@ function AcompanharSolicitacao({
               color: cores.texto,
             }}
           >
-            Informe seu CPF para consultar o andamento da sua solicitação.
-          </p>
+            Informe seu CPF para consultar o andamento das suas solicitações. 
+          </p>  
 
           <div style={styles.formGroup}>
             <label
@@ -157,7 +151,7 @@ function AcompanharSolicitacao({
               inputMode="numeric"
               placeholder="Digite seu CPF"
               value={cpf}
-              onChange={(e) => setCpf(e.target.value)}
+              onChange={(e) => setCpf(e.target.value.replace(/\D/g, "").slice(0, 11))} //Agora o campo CPF aceita apenas números e corrige se o usuario digitar outros caracteres
               style={{
                 ...styles.input,
                 backgroundColor: cores.cartao,

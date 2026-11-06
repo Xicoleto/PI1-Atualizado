@@ -12,15 +12,21 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET: Buscar por PROTOCOLO (Para o Acompanhamento do Cidadão)
-router.get('/buscar/:protocolo', async (req, res) => {
+// GET: Consultar TODAS as solicitações de um CPF (tela "Acompanhar" do cidadão) -- antes era por protocolos, alterado para CPF e para lsitar TODAS requisições invés de uma só
+router.get('/buscar/:cpf', async (req, res) => {
   try {
-    const solicitacao = await Solicitacao.findOne({ 
-      where: { id_requerente: req.params.protocolo },
-      include: ['requerente']
+    const cpfLimpo = req.params.cpf.replace(/\D/g, '');
+
+    const solicitacoes = await Solicitacao.findAll({
+      where: { id_requerente: cpfLimpo },
+      order: [['createdAt', 'DESC']],   // da mais recente para a mais antiga
+      attributes: ['id', 'numero_protocolo', 'status_atual', 'local_ocorrencia', 'createdAt']
     });
-    if (!solicitacao) return res.status(404).json({ message: "Protocolo não encontrado" });
-    res.json(solicitacao);
+
+    if (solicitacoes.length === 0) {
+      return res.status(404).json({ message: "Nenhuma solicitação encontrada para este CPF" });
+    }
+    res.json(solicitacoes);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

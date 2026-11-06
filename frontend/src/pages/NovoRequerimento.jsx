@@ -43,6 +43,12 @@ function NovoRequerimento({
       return;
     }
 
+    // Valida se o CPF tem mesmo apenas 11 digitos numéricos
+       if (cpf.length !== 11) {
+      alert("O CPF deve ter 11 números.");
+      return;
+    }
+
     // Monta o objeto exatamente como o Backend espera
     const dadosSolicitacao = {
       nome_solicitante: nome,
@@ -193,7 +199,7 @@ function NovoRequerimento({
                   color: cores.texto,
                 }}
               >
-                CPF *
+                CPF * (SOMENTE NÚMEROS)
               </label>
 
               <input
@@ -201,7 +207,7 @@ function NovoRequerimento({
                 name="cpf"
                 type="text"
                 inputMode="numeric"
-                maxLength={14}
+                maxLength={11} //de 14 para 11, garantindo que não tenha mais itens
                 style={{
                   ...styles.input,
                   color: cores.texto,
@@ -209,7 +215,7 @@ function NovoRequerimento({
                   borderColor: cores.borda,
                 }}
                 value={cpf}
-                onChange={(e) => setCpf(e.target.value)}
+                onChange={(e) => setCpf(e.target.value.replace(/\D/g, "").slice(0, 11))} //Grava apenas 11 digitos numéricos
                 required
                 aria-required="true"
               />

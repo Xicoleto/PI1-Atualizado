@@ -22,7 +22,7 @@ docker-compose up --build
 3. Como acessar as ferramentas?
 Após o terminal mostrar que o banco está pronto e o backend está rodando, acesse pelos links:
 
-🌐 Frontend (Interface do Usuário): http://localhost:5173
+🌐 Frontend (Interface do Usuário): http://localhost:5173 / https://pi1-atualizado-1.onrender.com/ na nuvem
 
 ⚙️ Backend (API): http://localhost:3001 / `${API_URL}/api/solicitacoes` no render
 
